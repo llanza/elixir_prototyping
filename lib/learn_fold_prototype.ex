@@ -21,22 +21,31 @@ defmodule LearnFoldPrototype do
 
   defp match_alias_to_color(input, accumulator) do
     regex = ~r/^[^-\s][a-zA-Z0-9_\s-]+$/
-    isColor = String.match?(input, regex)
+    is_color = String.match?(input, regex)
 
-    if isColor do
-      newMatchedMap = Map.put(accumulator.matched_map, input, [])
-      newAccumulator = %{accumulator | :matched_map => newMatchedMap, :current_color => input}
-
-      newAccumulator
+    if is_color do
+      updated_accumulator = add_color_to_accumulator(input, accumulator)
+      updated_accumulator
     else
-      trimmedInput = String.trim(input)
-      aliasList = Map.get(accumulator.matched_map, accumulator.current_color)
-      newAliasList = aliasList ++ [trimmedInput]
-      IO.inspect(newAliasList)
-      newMatchedMap = %{accumulator.matched_map | accumulator.current_color => newAliasList}
-      newAccumulator = %{accumulator | :matched_map => newMatchedMap}
-      newAccumulator
+      updated_accumulator  = add_alias_to_accumulator(input, accumulator)
+      updated_accumulator
     end
+  end
+
+  def add_color_to_accumulator(input, accumulator) do
+    new_matched_map = Map.put(accumulator.matched_map, input, [])
+    new_accumulator = %{accumulator | :matched_map => new_matched_map, :current_color => input}
+    new_accumulator
+  end
+  
+  def add_alias_to_accumulator(input, accumulator) do
+    trimmed_input = String.trim(input)
+    alias_list = Map.get(accumulator.matched_map, accumulator.current_color)
+    new_alias_list = alias_list ++ [trimmed_input]
+    IO.inspect(new_alias_list)
+    new_matched_map = %{accumulator.matched_map | accumulator.current_color => new_alias_list}
+    new_accumulator = %{accumulator | :matched_map => new_matched_map}
+    new_accumulator
   end
 
 end
