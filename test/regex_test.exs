@@ -3,11 +3,26 @@ defmodule RegexTest do
 
   alias Regex
 
-  @moduletag :capture_log
+  test "no spaces regex" do
+    #given
+    test_string = "red"
+    # https://regexr.com
+    regex = ~r/^[^-\s][a-zA-Z0-9_\s-]+$/
+    #when
+    matched = String.match?(test_string, regex)
+    #then
+    assert matched == true
+  end
 
-  doctest Regex
+  test "spaces regex" do
+    #given
+    test_string = "    scarlet"
+    regex = ~r/^[^-\s][a-zA-Z0-9_\s-]+$/
 
-  test "module exists" do
-    assert is_list(Regex.module_info())
+    #when
+    matched = String.match?(test_string, regex)
+
+    #then
+    assert matched == false
   end
 end

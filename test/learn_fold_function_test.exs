@@ -3,11 +3,16 @@ defmodule LearnFoldFunctionTest do
 
   alias LearnFoldFunction
 
-  @moduletag :capture_log
+  test "sum with fold" do
 
-  doctest LearnFoldFunction
-
-  test "module exists" do
-    assert is_list(LearnFoldFunction.module_info())
+    #given
+    input = [1,2,3]
+    expected = 6
+    initial_value = 0
+    fold_function = fn x,acc -> acc + x end
+    #when
+    actual = List.foldl(input, initial_value, fold_function)
+    #then
+    assert actual == expected
   end
 end

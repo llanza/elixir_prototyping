@@ -1,13 +1,35 @@
 defmodule LearnFoldPrototypeTest do
   use ExUnit.Case
-
   alias LearnFoldPrototype
 
-  @moduletag :capture_log
+  test "fold color aliases" do
+    #given
+    input = [
+      "red",
+      "    scarlet",
+      "    ruby",
+      "    flame",
+      "green",
+      "    jade",
+      "    forest",
+      "    mint",
+      "blue",
+      "    turquoise",
+      "    azure",
+      "    sapphire"
+    ]
 
-  doctest LearnFoldPrototype
+    expected = %{
+      "red" => ["scarlet", "ruby", "flame"],
+      "green" => ["jade", "forest", "mint"],
+      "blue" => ["turquoise", "azure", "sapphire"]
+    }
 
-  test "module exists" do
-    assert is_list(LearnFoldPrototype.module_info())
+    #when
+
+    actual = LearnFoldPrototype.compose_alias_map(input)
+
+    #then
+    assert actual == expected
   end
 end

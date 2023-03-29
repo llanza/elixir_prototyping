@@ -23,12 +23,12 @@ defmodule HelloTime do
     target
   end
 
-  def main(file_name, filePath, target, currentTime) do
+  def main() do
     time_unit = :microsecond
     start_time = currentTime(time_unit)
-    path = file_path(file_name) #Is it necessary to use the Path.expand?
+    path = file_path(file_name()) #Is it necessary to use the Path.expand?
     messageTarget = target(path)
-    IO.puts("Hello #{target}")
+    IO.puts("Hello #{messageTarget}")
     endTime = currentTime(time_unit)
     duration = endTime - start_time
     IO.puts("#{duration} microseconds")
