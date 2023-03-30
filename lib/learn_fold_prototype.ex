@@ -15,7 +15,6 @@ defmodule LearnFoldPrototype do
   def compose_alias_map(input) do
     accumulator = %{:matched_map => %{}, :current_color => nil}
     result = List.foldl(input, accumulator, &match_alias_to_color/2)
-    IO.inspect(result.matched_map)
     result.matched_map
   end
 
@@ -42,7 +41,7 @@ defmodule LearnFoldPrototype do
     trimmed_input = String.trim(input)
     alias_list = Map.get(accumulator.matched_map, accumulator.current_color)
     new_alias_list = alias_list ++ [trimmed_input]
-    IO.inspect(new_alias_list)
+
     new_matched_map = %{accumulator.matched_map | accumulator.current_color => new_alias_list}
     new_accumulator = %{accumulator | :matched_map => new_matched_map}
     new_accumulator
