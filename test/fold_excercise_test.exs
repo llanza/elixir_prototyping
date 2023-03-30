@@ -33,22 +33,19 @@ defmodule FoldExcerciseTest do
   end
 
   def compose_alias_map(lines) do
-    initial_value = %{:alias_map => %{}, :current_color => :none}
+    initial_value = %{alias_map: %{}, current_color: :none}
     builder = Enum.reduce(lines, initial_value, &process_line/2)
-    result = builder.matched_aliases
+    result = builder.alias_map
     result
   end
 
   def process_line(line, builder) do
-    #in each line i'm supposed to add the color or the matched alias to the accumulator
-    #I need to know if the input is a color or an alias
     color_regex = ~r/^\w+$/
     alias_regex = ~r/^\s+(\w+)$/
     color_match_result = Regex.run(color_regex, line)
     if color_match_result do
       [color] = color_match_result
       process_color(color, builder)
-      IO.inspect(builder)
     else
       alias_match_result = Regex.run(alias_regex, line)
       if alias_match_result do
@@ -59,7 +56,6 @@ defmodule FoldExcerciseTest do
   end
 
   def process_color(color, builder) do
-    #Map.put(builder.matched_aliases, color, [])
      result = Map.put(builder, :current_color, color)
      result
   end
